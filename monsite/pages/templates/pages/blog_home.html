@@ -1,0 +1,57 @@
+<IDOCTYPE html>
+<html lang-"fr">
+<head>
+    <meta charset-"UTF-8"5
+    <title>{{titre_page}}</title>
+    <style>
+        body { font-fanily: Arial, sans-serif; max-width: 800px; mergin: 50px auto; Pading: 0 20px;}
+        .article {border: 1px solid #ddd; padding: 20px; margin: 2x 0: border-radius: 5px;}
+        .article h2 { margin-top: 0; color: #2c3es0;}
+        .article-meta {color: #78c8d; font-size: 0.9em; }
+        .tag {background: #3498db; color: white; pading: 3px &px; border-radius: 3px; font-size: 0. 8em; margin-right: 5px; }
+        nav{ background: #34495e; radding: 15px; wargin-bottom: 30px;}
+        nav a { color: white; text-decoration: none; margin-right: 20px; }
+    </style> 
+</head> 
+<body> 
+    <nav>
+        <a href="/">Accuei</a>
+        <a hrref="/blog/">B1og</a>
+        <a href="/about/">propos </a>
+        <a href="/contact/">Contact</a>
+    </nav>
+    <header>
+        <h1> {{titre_page}} </h1>
+        <p>
+            {{nombre_articles}} article 
+            {% if nombre_articles > 1 %}s{% endif %} 
+            publié
+            {% if nombre_articles > 1 %}s{% endif %}
+        </p> 
+    </header>
+    <main>
+
+        {% if articles %}
+            {% for article in articles %}
+                <div class="article">
+                    <h2><a href="/blog/{{ article.id }}">{{article.titre}}</a></h2>
+                    <div class="article-meta">
+                        Par {{article.auteur}} le {{article.date}}
+                    </div>
+                    <p>{{article.contenu}}</p>
+                    <div>
+                        {% for tag in article.tags %}
+                            <span class="tag">{{tag}}</span>
+                        {% endfor %}
+                    </div> 
+                </div> 
+            {% endfor %}
+            {% else %} 
+                <p>Aucun article pour le moment. </p>
+        {% endif %} 
+    </main>
+    <footer>
+        <p>&copy; 2026 Mon blog Django </p>
+    </footer>
+</body>
+<html>

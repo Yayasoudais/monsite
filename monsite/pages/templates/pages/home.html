@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>{{titre}}</title>
+</head> 
+<body>
+    <header>
+        <h1> {{titre}} </h1> 
+        <p><em>{{description}}</em></p>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/about/">À propos</a> 
+            <a href="/contact/">Contact</a>
+        </nav> 
+    </header>
+    <main>
+        <h2>Technologie utilisées </h2>
+        <ul>
+            {% for tech in techonologies%}
+                <li> {{tech}}</li>
+            {% endfor %}
+        </ul>
+        <h2> Statiqtiques </h2>
+        <p> Nombre de visiteurs: <strong> {{nombre_visiteurs}} </strong></p>
+        {% if nombre_visiteurs > 1000%}
+            <p style = "color : green;"> plus de mille visiteurs !</p>
+
+        {% else %}
+            <p> Continuez à partager le site ! </p>
+        {% endif %}
+        
+        <h2>Découvrez Djangos</h2>
+        <p>Ce site est construit avec Django, le framework web Python. </p>
+        <p>Django permet de créer des applications web robustes et scalables. </p>
+    </main>
+    <footer>
+        <p>&copy; 2026 Mon Site Djangos</p>
+    </footer> 
+</body>
+</html>
