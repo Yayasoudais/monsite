@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+<html lang="fr"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Mon Site Django{% endblock %}</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; } 
+            body { font-family: Arial, sans-serif; line-height: 1.6; }
+            /* Header et Navigation */
+
+            header { background: #34495e; color: white; padding: 20px; text-align: center; } 
+            nav { background: #2c3e50; padding: 15px; text-align: center; }
+            nav a { color: white; text-decoration: none; margin: 0 15px; padding: 5px 10px; } 
+            nav a:hover { background: #34495e; border-radius: 3px; }
+            /* Contenu principal */
+
+            main { max-width: 1000px; margin: 30px auto; padding: 0 20px; min-height: 400px; }
+            /* Footer */
+            footer { background: #34495e; color: white; text-align: center; padding: 20px; margin-top: 50px; }
+            * Styles généraux */
+            h1 { color: #2c3e50; margin-bottom: 20px; } h2 { color: #34495e; margin: 20px 0 10px; } p { margin-bottom: 15px; }
+        </style>
+        {% block extra_css %}{% endblock %} 
+    </head>
+    <body> 
+        <header>
+            <h1> Mon Site Django</h1>
+            <p>Apprendre Django étape par étape</p> 
+        </header>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/blog/">Blog</a>
+            <a href="/about/">À propos</a> 
+            <a href="/contact/">Contact</a>
+        </nav>
+        <main>
+            {% block content %}
+            <!-- Le contenu spécifique de chaque page ira ici --> {% endblock %}
+        </main>
+        <footer>
+            <p>&copy; {% now "Y" %} Mon Site Django - Tous droits réservés</p>
+        </footer>
+        {% block extra_js %}{% endblock %} 
+    </body>
+</html>

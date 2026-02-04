@@ -1,3 +1,33 @@
+{% extends 'pages/base.html' %}
+<!--==================== Inclure la page base ============================-->
+
+{% block title %}Accueil - Mon site Django{% endblock title %}
+
+{% block content %}
+    <h1> {{titre}} </h1> 
+    <p>{{description}}</p>
+    <h2>Technologie utilisées </h2>
+        <ul>
+            {% for tech in techonologies%}
+                <li> {{tech}}</li>
+            {% endfor %}
+        </ul>
+        <h2> Statiqtiques </h2>
+        <p> Nombre de visiteurs: <strong> {{nombre_visiteurs}} </strong></p>
+        {% if nombre_visiteurs > 1000 %}
+            <p style = "color : green;"> plus de mille visiteurs !</p>
+        {% else %}
+            <p> Continuez à partager le site ! </p>
+        {% endif %}
+        
+        <h2>Découvrez Djangos</h2>
+        <p>Ce site est construit avec Django, le framework web Python. </p>
+        <p>Django permet de créer des applications web robustes et scalables. </p>
+
+{% endblock content %}
+
+<!--
+    ======================Première partie sans la page base.html===================
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -40,3 +70,6 @@
     </footer> 
 </body>
 </html>
+
+-->
+
