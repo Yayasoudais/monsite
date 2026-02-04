@@ -1,4 +1,29 @@
-<IDOCTYPE html>
+{% extends 'pages/base.html' %}
+
+{% block title %}{{titre_page}}{% endblock %}
+
+{% block content %}
+<h1> {{titre_page|upper}} </h1>
+<p>{{ nombre_articles }} article{{nombre_articles|pluralize}} publié{{ nombre_articles|pluralize }}</p> 
+{% for article in articles %}
+    <div style = "border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px;">
+        <h2><a href="/blog/{{ article.id }}">{{article.titre|title}}</a></h2>
+        <div style= "color: #7f8c8d; font-size: 0.9em;">
+            Par {{article.auteur}} le {{article.date}}
+        </div>
+        <p>{{article.contenu|truncatewords:20}}</p>
+        <p><small>{{article.contenu|length}} caractères</small></p>
+        <div> Tags: <span class="tag">{{article.tags|join:", "}}</span></div> 
+    </div> 
+{% endfor %}
+
+{% endblock %}
+
+
+
+<!--
+================================ Programme avant les filtre=========================
+    <IDOCTYPE html>
 <html lang-"fr">
 <head>
     <meta charset-"UTF-8"5
@@ -16,8 +41,8 @@
 <body> 
     <nav>
         <a href="/">Accuei</a>
-        <a hrref="/blog/">B1og</a>
-        <a href="/about/">propos </a>
+        <a hrref="/blog/">Blog</a>
+        <a href="/about/">Propos </a>
         <a href="/contact/">Contact</a>
     </nav>
     <header>
@@ -55,3 +80,5 @@
     </footer>
 </body>
 <html>
+=====================================================================================
+-->
