@@ -1,3 +1,25 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}À propos - Mon Site Django{% endblock title %}
+
+{% block content %}
+    <h2>Contactez-moi</h2>
+    <p><strong>Email :</strong> contact@monsite.com</p> 
+    <p><strong>Teléphone :</strong> +243 123 456 789</P> 
+    <p><strong>Adresse :</strong> Conakry, Guinée</p>
+
+    <h3>Formulaire de contact</h3>
+    <form>
+        <input type="text" placeholder="Votre nom" required><br><br> 
+        <input type="email" placeholder="Votre email" required><br><br>
+        <textarea placeholder="Votre message" rows="5" cols="50"></textarea><br> 
+        <button type="submit">Envoyer</button> 
+    </form> 
+    
+{% endblock %}
+
+<!--
+=================== Avant d'inclure le css=============
 <!DOCTYPE html> 
 <html lang="fr"> 
 <head> 
@@ -32,3 +54,5 @@
     </footer>
 </body>
 </html>
+
+-->

@@ -6,14 +6,26 @@
 <h1> {{titre_page|upper}} </h1>
 <p>{{ nombre_articles }} article{{nombre_articles|pluralize}} publié{{ nombre_articles|pluralize }}</p> 
 {% for article in articles %}
+<!--
+    ============ Avant le fichier style.css================================================
     <div style = "border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 5px;">
+-->
+    <div class="article-card">
         <h2><a href="/blog/{{ article.id }}">{{article.titre|title}}</a></h2>
-        <div style= "color: #7f8c8d; font-size: 0.9em;">
+     <!--   <div style= "color: #7f8c8d; font-size: 0.9em;"> -->
+        <div class="article-meta">
             Par {{article.auteur}} le {{article.date}}
         </div>
+        <div>
+            {% for tag in article.tags %}
+                <span class="tag">{{tag}}</span>
+            {% endfor %}
+        </div>
+       <!--
         <p>{{article.contenu|truncatewords:20}}</p>
         <p><small>{{article.contenu|length}} caractères</small></p>
         <div> Tags: <span class="tag">{{article.tags|join:", "}}</span></div> 
+       -->
     </div> 
 {% endfor %}
 
