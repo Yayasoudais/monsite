@@ -61,3 +61,35 @@ def about(request):
     return render(request,'pages/about.html')
 def contact(request):
     return render(request,'pages/contact.html')
+
+def portfolio(request): 
+    projets = [
+        {
+            'id': 1,
+            'nom': 'Site E-commerce',
+            'description': 'Plateforme de vente en ligne complète avec panier et paiement.', 
+            'technologies': ['Django', 'PostgreSQL', 'Stripe'],
+            'date': '2025-12',
+            'statut': 'Terminé',
+        }, 
+        {
+            'id': 2,
+            'nom': 'Blog Personnel',
+            'description': 'Blog avec système de commentaires et recherche.', 
+            'technologies': ['Django', 'SQLite', 'Bootstrap'],
+            'date': '2026-01',
+            'statut': 'En cours',
+        },{
+            'id': 3,
+            'nom': 'API REST',
+            'description': 'API pour application mobile de gestion de tâches.',
+            'technologies': ['Django REST Framework', 'JWT', 'Redis'], 
+            'date': '2026-01',
+            'statut': 'En cours',
+        }, 
+    ]
+    context = {
+        'projets': projets, 
+        'nombre_projets': len(projets),
+    }
+    return render(request, 'pages/portfolio.html', context)

@@ -1,0 +1,29 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Portfolio - Mon Site Django{% endblock %}
+
+{% block content %}
+
+    <h1> Mon Portfolio</h1>
+    <p>Découvrez mes {{ nombre_projets }} projets récents</p>
+    {% for projet in projets %} 
+        <div class="article-card">
+            <h2>{{ projet.nom }}</h2> 
+            <div class="article-meta">
+                {{ projet.date }} -
+                <strong style="color: {% if projet.statut == 'Terminé' %}green{% else %}orange{% endif %};">
+                    {{ projet.statut }} 
+                </strong>
+            </div>
+            <p>{{ projet.description }}</p> 
+            <div>
+                <strong>Technologies :</strong>
+                {% for tech in projet.technologies %}
+                    <span class="tag">{{ tech }}</span> 
+                {% endfor %}
+            </div> 
+        </div>
+        
+    {% endfor %} 
+
+{% endblock %}
