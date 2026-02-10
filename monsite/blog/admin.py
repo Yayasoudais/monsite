@@ -1,7 +1,13 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, Categorie
 
 # Register your models here.
+
+@admin.register(Categorie)
+class CategorieAdmin(admin.ModelAdmin):
+    list_display = ('nom','slug')
+    search_fields = ('nom',)
+    prepopulated_fields = {'slug':('nom',)}
 
 @admin.register(Article) 
 class ArticleAdmin(admin.ModelAdmin): 
@@ -9,14 +15,15 @@ class ArticleAdmin(admin.ModelAdmin):
     
     # Champs affichés dans la liste 
     
-    list_display = ('titre', 'date_publication', 'publie')
+    list_display = ('titre','categorie','date_publication','publie')
+    
     # Champs filtrables 
     
-    list_filter = ('publie', 'date_publication')
+    list_filter = ('publie','date_publication','categorie')
     
     # Barre de recherche 
     
-    search_fields = ('titre', 'contenu')
+    search_fields = ('titre','contenu')
     
     # Champs remplis automatiquement 
     
@@ -24,7 +31,7 @@ class ArticleAdmin(admin.ModelAdmin):
     
     # Ordre des champs dans le formulaire 
     
-    fields = ('titre', 'slug', 'contenu', 'date_publication', 'publie')
+    fields = ('titre', 'slug', 'contenu','categorie', 'date_publication', 'publie')
     
     # Ou grouper par sections 
 
