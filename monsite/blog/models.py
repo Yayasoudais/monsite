@@ -42,8 +42,8 @@ class Article(models.Model):
     publie = models.BooleanField(default=False, verbose_name="publié")
     
     class Meta:
-        verbose_name = "Article" 
-        verbose_name_plural = "Articles" 
+    #    verbose_name = "Article" 
+    #    verbose_name_plural = "Articles" 
         ordering = ['-date_publication'] # Plus récent en premier
         
     def __str__(self):
