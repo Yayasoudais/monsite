@@ -1,3 +1,73 @@
 from django.db import models
 
 # Create your models here.
+class Auteur(models.Model):
+    """Auteur d'articles"""
+    
+    nom = models.CharField(max_length=100)
+    prenom = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    bio = models.TextField(blank=True)
+    date_naissance = models.DateField(null=True, blank=True) 
+    site_web = models.URLField(blank=True)
+    
+    class Meta:
+        verbose_name = "Auteur" 
+        verbose_name_plural = "Auteurs" 
+        ordering = ['nom', 'prenom']
+        
+    def __str__(self):
+        return f"{self.prenom} {self.nom}"
+    
+    @property
+    def nom_complet(self):
+        return f"{self.prenom} {self.nom}"
+
+class Categorie(models.Model):
+    """Catégorie d'articles"""
+    
+    nom = models.CharField(max_length=100, unique=True) 
+    slug = models.SlugField(unique=True)
+    description = models.TextField(blank=True)
+    
+    class Meta:
+        verbose_name = "Catégorie" 
+        verbose_name_plural = "Catégories"
+    def __str__(self): 
+        return self.nom
+
+class Article(models.Model): 
+    """Article de magazine"""
+    
+    # Informations de base
+    titre = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    contenu = models.TextField(blank=True)
+    resume = models.TextField(max_length=300, blank=True)
+    
+    # RELATIONS ForeignKey
+    auteur = models.ForeignKey( 
+        Auteur,
+        on_delete=models.CASCADE, # Si auteur supprimé → articles supprimés
+        related_name='articles' # Accès inverse : auteur.articles.all() 
+    )
+    categorie = models.ForeignKey(
+        Categorie,
+        on_delete=models.SET_NULL, # Si catégorie supprimée → null null=True,
+        null=True,
+        blank=True,
+        related_name='articles'
+    )
+    
+    # Métadonnées
+    date_creation = models.DateTimeField(auto_now_add=True) 
+    date_publication = models.DateTimeField(null=True, blank=True) 
+    publie = models.BooleanField(default=False)
+    vues = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        verbose_name = "Article" 
+        verbose_name_plural = "Articles" 
+        ordering = ['-date_creation']
+    def __str__(self): 
+        return self.titre
