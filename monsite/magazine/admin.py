@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Auteur, Categorie, Article, Tag
+from .models import Auteur, Categorie, Article, Tag, ProfilAuteur
 
 # Register your models here.
 
@@ -26,6 +26,11 @@ class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('titre',)}
     list_editable = ('publie',)
     filter_horizontal = ('tags',) # Interface améliorée pour ManyToMany
+
+@admin.register(ProfilAuteur)
+class ProfilAuteurAdmin(admin.ModelAdmin):
+    list_display = ('user', 'ville', 'pays', 'articles_publies', 'date_inscription') 
+    search_fields = ('user__username', 'ville')  
     
 # Afficher les ForeignKey comme raw_id (pour beaucoup de données) 
 

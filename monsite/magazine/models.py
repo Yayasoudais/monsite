@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Auteur(models.Model):
@@ -50,6 +51,36 @@ class Tag(models.Model):
     def __str__(self): 
         return self.nom
 
+
+class ProfilAuteur(models.Model):
+    """Profil étendu d'un auteur (lié au User Django)"""
+    # RELATION OneToOne
+    user = models.OneToOneField( 
+        User,
+        on_delete=models.CASCADE,
+        related_name='profil_auteur' 
+    )
+    
+    # Informations supplémentaires
+    bio = models.TextField(blank=True)
+    # photo = models.ImageField(upload_to='auteurs/', blank=True) 
+    telephone = models.CharField(max_length=20, blank=True) 
+    ville = models.CharField(max_length=100, blank=True)
+    pays = models.CharField(max_length=100, default='Guinée') 
+    site_web = models.URLField(blank=True)
+    twitter = models.CharField(max_length=100, blank=True) 
+    linkedin = models.CharField(max_length=100, blank=True)
+    
+    # Statistiques
+    articles_publies = models.PositiveIntegerField(default=0) 
+    date_inscription = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Profil Auteur" 
+        verbose_name_plural = "Profils Auteurs"
+        
+    def __str__(self):
+        return f"Profil de {self.user.username}"
 
 class Article(models.Model): 
     """Article de magazine"""
