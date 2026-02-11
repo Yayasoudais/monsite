@@ -36,6 +36,21 @@ class Categorie(models.Model):
     def __str__(self): 
         return self.nom
 
+
+class Tag(models.Model):
+    """Tag pour catégoriser les articles"""
+    nom = models.CharField(max_length=50, unique=True) 
+    slug = models.SlugField(unique=True)
+    
+    class Meta:
+        verbose_name = "Tag" 
+        verbose_name_plural = "Tags" 
+        ordering = ['nom']
+        
+    def __str__(self): 
+        return self.nom
+
+
 class Article(models.Model): 
     """Article de magazine"""
     
@@ -57,6 +72,14 @@ class Article(models.Model):
         null=True,
         blank=True,
         related_name='articles'
+    )
+    
+    # RELATION ManyToMany 
+    
+    tags = models.ManyToManyField(
+        Tag,
+        related_name='articles',
+        blank=True # Les tags sont optionnels
     )
     
     # Métadonnées
