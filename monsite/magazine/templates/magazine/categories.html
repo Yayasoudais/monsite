@@ -1,0 +1,22 @@
+{% extends 'magazine/base.html' %}
+
+{% block title %}{{ titre_page }} - Magazine Django{% endblock %}
+
+{% block content %}
+    <h1>{{ titre_page }}</h1>
+    <div class="grid">
+        {% for categorie in categories %}
+            <div class="card">
+                <h3>
+                    <a href="{% url 'magazine:articles_categorie' categorie.slug %}">{{ categorie.nom}}</a>
+                </h3>
+                {% if categorie.description %}
+                    <p>{{ categorie.description|truncatewords:15 }}</p>
+                {% endif %}
+                <p>
+                    <strong>{{ categorie.nb_articles }}</strong> article{{ categorie.nb_articles|pluralize}}
+                </p> 
+            </div>
+        {% endfor %} 
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'magazine/base.html' %}
+
+{% block title %}{{ titre_page }} - Magazine Django{% endblock %}
+
+{% block content %}
+    <h1>{{ titre_page }}</h1>
+
+    <div class="grid">
+        {% for article in articles %}
+            <div class="article-card">
+                <h2>
+                    <a href="{% url 'magazine:detail_article' article.slug %}">
+                        {{ article.titre }}
+                    </a>
+                </h2>
+
+                <div class="article-meta">
+                    Par {{ article.auteur.nom_complet }} 
+                    — 
+                    <a href="{% url 'magazine:articles_categorie' article.categorie.slug %}">
+                        {{ article.categorie.nom }}
+                    </a>
+                    — {{ article.date_publication|date:"d/m/Y" }}
+                </div>
+
+                <p>{{ article.resume|default:article.contenu|truncatewords:25 }}</p>
+
+                <div class="tags">
+                    {% for tag in article.tags.all %}
+                        <a href="{% url 'magazine:articles_tag' tag.slug %}">
+                            #{{ tag.nom }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
+            <p>Aucun article pour ce tag.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

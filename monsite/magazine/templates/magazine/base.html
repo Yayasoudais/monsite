@@ -1,0 +1,111 @@
+{% load static %} 
+<!DOCTYPE html> 
+<html lang="fr"> 
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>{% block title %}Magazine Django{% endblock %}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        
+        /* Header */
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 0; } 
+        header .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        
+        /* Navigation */
+        nav { background: #333; padding: 15px 0; }
+        nav .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        nav a { color: white; text-decoration: none; margin-right: 20px; padding: 5px 10px; border-radius: 3px; } nav a:hover { background: #667eea; }
+    
+        /* Recherche */
+        .search-bar { background: #f4f4f4; padding: 20px 0; }
+        .search-bar .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .search-bar form { display: flex; }
+        .search-bar input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px 0 0 5px;
+        font-size: 1em; }
+        .search-bar button { padding: 12px 30px; background: #667eea; color: white; border: none; border-radius:
+        0 5px 5px 0; cursor: pointer; }
+        .search-bar button:hover { background: #764ba2; }
+        
+        /* Contenu */
+        main { max-width: 1200px; margin: 30px auto; padding: 0 20px; min-height: 400px; }
+    
+        /* Articles */
+        .article-card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 25px; margin- bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: all 0.3s; }
+        .article-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); } .article-card h2 { color: #667eea; margin-bottom: 10px; }
+        .article-card h2 a { color: #667eea; text-decoration: none; }
+        .article-card h2 a:hover { color: #764ba2; }
+        .article-meta { color: #777; font-size: 0.9em; margin: 10px 0; } 
+        .article-meta a { color: #667eea; text-decoration: none; } 
+        .article-resume { margin: 15px 0; line-height: 1.8; }
+
+        /* Tags */
+        .tags { margin: 15px 0; }
+        .tag { display: inline-block; background: #667eea; color: white; padding: 5px 12px; border-radius: 20px;
+        font-size: 0.85em; margin-right: 8px; margin-top: 5px; text-decoration: none; } .tag:hover { background: #764ba2; }
+
+        /* Grille */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: center;
+        transition: all 0.3s; }
+        .card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); } .card h3 { color: #667eea; margin-bottom: 10px; }
+        .card a { color: #667eea; text-decoration: none; }
+       
+        /* Stats */
+        .stats { background: #f4f4f4; padding: 15px; border-radius: 5px; margin: 20px 0; } .stats-item { display: inline-block; margin-right: 30px; }
+        .stats-item strong { color: #667eea; font-size: 1.2em; }
+
+        /* Sidebar */
+        .layout-2col { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; } .sidebar { background: #f9f9f9; padding: 20px; border-radius: 10px; } .sidebar h3 { color: #667eea; margin-bottom: 15px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 10px; }
+        .sidebar a { color: #333; text-decoration: none; }
+        .sidebar a:hover { color: #667eea; }
+
+        /* Footer */
+        footer { background: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+        .layout-2col { grid-template-columns: 1fr; }
+        .grid { grid-template-columns: 1fr; } }
+
+    </style>
+    {% block extra_css %}{% endblock %} 
+</head>
+<body> 
+    <header>
+        <div class="container">
+            <h1> Magazine Django</h1>
+            <p>Votre source d'informations sur Django et Python</p>
+        </div> 
+    </header>
+    <nav>
+        <div class="container">
+            <a href="{% url 'magazine:liste_articles' %}">Articles</a> 
+            <a href="{% url 'magazine:categories' %}">Catégories</a> 
+            <a href="{% url 'magazine:auteurs' %}">Auteurs</a>
+            <a href="/">Accueil Site</a>
+        </div> 
+    </nav>
+    <div class="search-bar"> 
+        <div class="container">
+            <form method="GET" action="{% url 'magazine:recherche' %}">
+                <input type="text" name="q" placeholder="Rechercher un article..." value="{{ query|default:'' }}">
+                <button type="submit"> Rechercher</button>
+            </form>
+        </div> 
+    </div>
+    <main>
+        {% block content %} 
+        {% endblock %}
+    </main>
+        
+    <footer>
+        <p>&copy; {% now "Y" %} Magazine Django - Tous droits réservés</p>
+    </footer>
+    {% block extra_js %}{% endblock %} 
+</body>
+</html>

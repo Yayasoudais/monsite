@@ -1,0 +1,27 @@
+{% extends 'magazine/base.html' %}
+
+{% block title %}Recherche : {{ query }} - Magazine Django{% endblock %}
+
+{% block content %}
+    <h1>Résultats de recherche</h1>
+    {% if query %}
+        <p>
+            {{ nombre_resultats }} résultat{{ nombre_resultats|pluralize }} pour "<strong>{{ query }}</strong>"
+        </p>
+        {% for article in articles %} 
+            <div class="article-card">
+                <h2>
+                    <a href="{% url 'magazine:detail_article' article.slug %}">{{ article.titre }}</a>
+                </h2> 
+                <div class="article-meta">
+                    Par {{ article.auteur.nom_complet }} le {{ article.date_publication|date:"d/m/Y" }} 
+                </div>
+                <p>{{ article.contenu|truncatewords:30 }}</p> 
+            </div>
+            {% empty %}
+                <p>Aucun article trouvé pour cette recherche.</p>
+        {% endfor %} 
+    {% else %}
+        <p>Veuillez entrer un terme de recherche.</p> 
+    {% endif %}
+{% endblock %}

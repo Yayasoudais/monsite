@@ -1,0 +1,57 @@
+{% extends 'magazine/base.html' %}
+
+{% block title %}{{ article.titre }} - Magazine Django{% endblock %}
+
+{% block content %}
+    <div class="layout-2col">
+        <article>
+            <h1>{{ article.titre }}</h1>
+            <div class="article-meta">
+                Par <a href="{% url 'magazine:articles_auteur' article.auteur.id %}">{{ article.auteur.nom_complet }}</a>
+                le {{ article.date_publication|date:"d F Y" }} 
+                {% if article.categorie %}
+                    dans <a href="{% url 'magazine:articles_categorie' article.categorie.slug %}">{{ article.categorie.nom }}</a>
+                {% endif %} 
+            </div>
+            <div class="stats">
+                <span class="stats-item">
+                    <strong>{{ article.vues }}</strong> vue{{ article.vues|pluralize }} 
+                </span>
+                <span class="stats-item">
+                    Publié le {{ article.date_publication|date:"d/m/Y à H:i" }}
+                </span> 
+            </div>
+            <div style="margin: 30px 0; line-height: 1.8;"> 
+                {{ article.contenu|linebreaks }}
+            </div>
+            {% if article.tags.exists %} 
+                <div class="tags">
+                    <strong>Tags :</strong>
+                    {% for tag in article.tags.all %}
+                        <a href="{% url 'magazine:articles_tag' tag.slug %}" class="tag">#{{ tag.nom }}</a> 
+                    {% endfor %}
+                </div> 
+            {% endif %}
+        </article>
+        <aside class="sidebar">
+            <h3>À propos de l'auteur</h3>
+            <p><strong>{{ article.auteur.nom_complet }}</strong></p> 
+            {% if article.auteur.bio %}
+                <p>{{ article.auteur.bio|truncatewords:30 }}</p>
+            {% endif %}
+            <p>
+                <a href="{% url 'magazine:articles_auteur' article.auteur.id %}">Voir tous ses articles→</a>
+            </p>
+            {% if articles_similaires %}
+                <h3 style="margin-top: 30px;">Articles similaires</h3> 
+                <ul>
+                    {% for similar in articles_similaires %} 
+                        <li>
+                            <a href="{% url 'magazine:detail_article' similar.slug %}">{{ similar.titre }}</a> 
+                        </li>
+                    {% endfor %} </ul>
+            {% endif %} 
+        </aside>
+    </div>
+{% endblock %}
+            

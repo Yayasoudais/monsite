@@ -1,0 +1,23 @@
+{% extends 'magazine/base.html' %}
+
+{% block title %}{{ titre_page }} - Magazine Django{% endblock %}
+
+{% block content %}
+    <h1>{{ titre_page }}</h1>
+    <div class="grid">
+        {% for auteur in auteurs %}
+            <div class="card">
+                <h3>
+                    <a href="{% url 'magazine:articles_auteur' auteur.id %}">{{ auteur.nom_complet}}</a>
+                </h3>
+                {% if auteur.bio %}
+                    <p>{{ auteur.bio|truncatewords:20 }}</p>
+                {% endif %}
+                <p><strong>{{ auteur.nb_articles }}</strong> article{{ auteur.nb_articles|pluralize }}</p> 
+                {% if auteur.email %}
+                    <p><small>{{ auteur.email }}</small></p> 
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
